@@ -1,0 +1,39 @@
+video_root: '/data2/yzh/DATASETS/VTTmerge/frames'
+ann_root: '/data2/yzh/DATASETS/VTTmerge/anno'
+coco_gt_root: '/data2/yzh/DATASETS/VTTmerge/anno'
+
+# set pretrained as a file path or an url
+# pretrained: 'https://storage.googleapis.com/sfr-vision-language-research/BLIP/models/model_base_caption_capfilt_large.pth'
+pretrained: '/data2/yzh/TRECVID22/BLIP_video/output/Caption_vtt/large2p_3.pth'
+
+# size of vit model; base or large
+# pretrained: '/data2/yzh/BLIP_video/ckpt/model_base_caption_capfilt_large.pth'
+# vit: 'base'
+# vit_grad_ckpt: False
+# vit_ckpt_layer: 0
+# batch_size: 30
+# init_lr: 1e-5
+# init_lr: 1e-6
+
+# pretrained: '/data2/yzh/BLIP_video/ckpt/model_large_caption.pth'
+vit: 'large'
+vit_grad_ckpt: True
+vit_ckpt_layer: 5
+batch_size: 2
+# init_lr: 2e-6
+init_lr: 1e-7
+
+image_size: 224
+
+num_frm: 8
+
+# generation configs
+max_length: 32
+min_length: 10
+num_beams: 5
+prompt: ''
+
+# optimizer
+weight_decay: 0.05
+min_lr: 0
+max_epoch: 10

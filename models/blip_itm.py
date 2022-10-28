@@ -7,6 +7,8 @@ import torch.nn.functional as F
 
 from models.blip import create_vit, init_tokenizer, load_checkpoint
 
+import pdb
+
 class BLIP_ITM(nn.Module):
     def __init__(self,                 
                  med_config = 'configs/med_config.json',  
@@ -35,12 +37,15 @@ class BLIP_ITM(nn.Module):
         self.vision_proj = nn.Linear(vision_width, embed_dim)
         self.text_proj = nn.Linear(text_width, embed_dim)
 
-        self.itm_head = nn.Linear(text_width, 2) 
+        self.itm_head = nn.Linear(text_width, 2)
         
         
     def forward(self, image, caption, match_head='itm'):
-
-        image_embeds = self.visual_encoder(image) 
+        
+        B, N, C, W, H = image.size()
+        image = image.view(B*N, C, W, H)
+        image_embeds = self.visual_encoder(image)
+        image_embeds = image_embeds.view(B, N, image_embeds.shape[-2], image_embeds.shape[-1]).view(B, -1, image_embeds.shape[-1])
         image_atts = torch.ones(image_embeds.size()[:-1],dtype=torch.long).to(image.device)        
       
         text = self.tokenizer(caption, padding='max_length', truncation=True, max_length=35, 

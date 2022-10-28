@@ -1,0 +1,36 @@
+video_root: '/data2/yzh/DATASETS/VTTmerge/frames'
+ann_root: '/data2/yzh/DATASETS/VTTmerge/anno'
+dataset: 'trecvid'
+output_dir: '/data2/yzh/BLIP_video/output/video_itm'
+
+# set pretrained as a file path or an url
+pretrained: '/data2/yzh/BLIP_video/output/retrieval_video/r2.pth'
+# size of vit model; base or large
+
+# pretrained: '/data2/yzh/BLIP4VC/ckpt/model_base_capfilt_large.pth'
+# vit: 'base'
+# batch_size_train: 10
+# batch_size_test: 2
+# vit_grad_ckpt: True
+# vit_ckpt_layer: 4
+# init_lr: 1e-5
+
+vit: 'large'
+batch_size_train: 1
+batch_size_test: 150
+vit_grad_ckpt: True
+vit_ckpt_layer: 12
+init_lr: 5e-6
+
+num_frm: 8
+image_size: 224
+queue_size: 57600
+alpha: 0.4
+k_test: 128
+negative_all_rank: True
+
+# optimizer
+weight_decay: 0.05
+min_lr: 0
+max_epoch: 6
+

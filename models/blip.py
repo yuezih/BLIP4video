@@ -19,6 +19,7 @@ import torch.nn.functional as F
 import os
 from urllib.parse import urlparse
 from timm.models.hub import download_cached_file
+import pdb
 
 class BLIP_Base(nn.Module):
     def __init__(self,                 
@@ -185,6 +186,7 @@ def blip_feature_extractor(pretrained='',**kwargs):
 
 def init_tokenizer():
     tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+    # tokenizer = BertTokenizer.from_pretrained('/data2/yzh/BLIP_video/ckpt/BertTokenizer')
     tokenizer.add_special_tokens({'bos_token':'[DEC]'})
     tokenizer.add_special_tokens({'additional_special_tokens':['[ENC]']})       
     tokenizer.enc_token_id = tokenizer.additional_special_tokens_ids[0]  
@@ -226,11 +228,39 @@ def load_checkpoint(model,url_or_filename):
     state_dict['visual_encoder.pos_embed'] = interpolate_pos_embed(state_dict['visual_encoder.pos_embed'],model.visual_encoder) 
     if 'visual_encoder_m.pos_embed' in model.state_dict().keys():
         state_dict['visual_encoder_m.pos_embed'] = interpolate_pos_embed(state_dict['visual_encoder_m.pos_embed'],
-                                                                         model.visual_encoder_m)    
+                                                                         model.visual_encoder_m)
+    # pdb.set_trace()
     for key in model.state_dict().keys():
         if key in state_dict.keys():
             if state_dict[key].shape!=model.state_dict()[key].shape:
                 del state_dict[key]
+            
+            # # delete decoder, random initialize
+            # if key.find("text_decoder") == 0:
+            #     del state_dict[key]
+
+    # initialize new params
+    # new_keys_dict = {}
+    # for key, val in state_dict.items():
+    #     if key.find("visual_encoder.blocks") == 0:
+    #         new_keys_dict[key.replace("visual_encoder.", "temporal_transformer.")] = val.clone()
+    #     # visual_encoder.blocks.2.norm1.weight
+    #     # temporal_transformer.blocks.0.norm1.weight
+    # for key, val in new_keys_dict.items():
+    #     state_dict[key] = val
+    
+    # f_blip = open('/data2/yzh/BLIP_video/model.keys/blip_large.txt', 'a')
+    # for key in model.state_dict().keys():
+    #     f_blip.write(key+'\n')
+    # f_blip.close()
+
+    # f_ckpt = open('/data2/yzh/BLIP_video/model.keys/ckpt_large.txt', 'a')
+    # for key in state_dict.keys():
+    #     f_ckpt.write(key+'\n')
+    # f_ckpt.close()
+
+    # pdb.set_trace()
+        
     
     msg = model.load_state_dict(state_dict,strict=False)
     print('load checkpoint from %s'%url_or_filename)  
