@@ -43,14 +43,14 @@ This is the PyTorch code of BLIP4video, a modified version of [BLIP](https://git
 ```
 bash scripts/train_video_caption.sh
 ```
-Code is a little messy and needs detailed reading.
 
 
 ### Citation
 If you find this code to be useful for your research, please consider citing.
 <pre>
-@inproceedings{yue2022_trecvid,
-      # coming soon
+@article{yuerucaim3,
+  title={RUCAIM3-Tencent at TRECVID 2022: Video to Text Description},
+  author={Yue, Zihao and Liu, Yuqi and Zhang, Liang and Yao, Linli and Jin, Qin}
 }</pre>
 
 ### Acknowledgement
