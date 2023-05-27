@@ -47,11 +47,16 @@ bash scripts/train_video_caption.sh
 
 ### Citation
 If you find this code to be useful for your research, please consider citing.
-<pre>
-@article{yuerucaim3,
-  title={RUCAIM3-Tencent at TRECVID 2022: Video to Text Description},
-  author={Yue, Zihao and Liu, Yuqi and Zhang, Liang and Yao, Linli and Jin, Qin}
-}</pre>
+```
+@inproceedings{yue2022blip4video,
+  author = {Yue, Zihao and Liu, Yuqi and Zhang, Liang and Yao, Linli and Jin, Qin},
+  title = {RUCAIM3-Tencent at TRECVID 2022: Video to Text Description},
+  year = {2022},
+  booktitle = {Proceedings of TRECVID 2022},
+  organization = {NIST, USA},
+  url={https://www-nlpir.nist.gov/projects/tvpubs/tv22.papers/rucaim3-tencent.pdf}
+}
+```
 
 ### Acknowledgement
 The implementation of BLIP relies on resources from [BLIP](https://github.com/salesforce/BLIP) and [Oscar](https://github.com/microsoft/Oscar). We thank the original authors for their open-sourcing.  
